@@ -7,13 +7,6 @@ echo "<div style='text-align:center'><a href='logout.php'>Logout</a></div>";
 
 // Detects if there someone logged in.
 if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
-
-    // Sends the parameters to connect and instantiates the DB class in the $db variable.
-    require 'db.php';
-    require 'dbconn.php';
-
-    // Fetches all users and sends it to the PDO.
-    $db->query("SELECT * FROM users");
     
 ?>
 
@@ -26,16 +19,25 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
     </tr>
     <?php
 
+    // Sends the parameters to connect and instantiates the DB class in the $db variable.
+    require 'db.php';
+    require 'dbconn.php';
+
+    // Fetches all users and sends it to the PDO.
+    $db->query("SELECT * FROM users");
+
     if($db->rowNum() > 0){
-    foreach($db->resultAll() as $user){
-        echo "<tr>";
-        echo "<td style='text-align:center'>".$user["name"]."</td>";
-        echo "<td style='text-align:center'>".$user["email"]."</td>";
-        echo '<td style="text-align:center"><a href="edit.php?id='.$user["id"].'">Edit</a> - <a href="delete.php?id='.$user["id"].'">Delete</a>';
-        echo "</tr>";
-    }
+
+        foreach($db->listEntries() as $user){
+            echo "<tr>";
+            echo "<td style='text-align:center'>".$user["name"]."</td>";
+            echo "<td style='text-align:center'>".$user["email"]."</td>";
+            echo '<td style="text-align:center"><a href="edit.php?id='.$user["id"].'">Edit</a> - <a href="delete.php?id='.$user["id"].'">Delete</a>';
+            echo "</tr>";
+        }
+
     }else{
-    echo "There are no registered users.";
+        echo "There are no registered users.";
     }
     
     ?>

@@ -22,11 +22,8 @@ if(!isset($_SESSION["id"]) && empty($_SESSION["id"])){
         // Counts the row for the provided user to see if it exists.
         if($db->rowNum() > 0){
 
-            // Fetches user's data and stores it on $data.
-            $data = $db->singleEntry();
-
             // Stores user's id on the session's id, therefore loggin in the user.
-            $_SESSION["id"] = $data["id"];
+            $_SESSION["id"] = true;
             
             header("Location: index.php");
 

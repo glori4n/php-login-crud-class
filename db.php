@@ -7,8 +7,7 @@ class DB{
     // Declaration of PDO's parameters.
     private $pdo;
     private $numRows;
-    private $allEntries;
-    private $singleEntry;
+    private $entries;
 
     public function __construct($host, $dbname, $dbuser, $dbpass){
 
@@ -24,16 +23,15 @@ class DB{
     public function query($sql){
         $query = $this->pdo->query($sql);
         $this->numRows = $query->rowCount();
-        $this->singleEntry = $query->fetch();
-        $this->allEntries = $query->fetchAll();
+        $this->entries = $query->fetchAll();
     }
 
-    public function resultAll(){
-        return $this->allEntries;
+    public function listEntries(){
+        return $this->entries;
     }
 
-    public function singleEntry(){
-        return $this->singleEntry;
+    public function fetchEntry(){
+        return $this->entries;
     }
 
     public function rowNum(){
@@ -52,4 +50,3 @@ class DB{
         $this->pdo->query($sql);
     }
 }
-
