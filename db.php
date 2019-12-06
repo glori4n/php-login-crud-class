@@ -20,32 +20,34 @@ class DB{
 
     }
 
+    // this function receives the query and inserts it on the database as well as filling up some of this class' variables.
     public function query($sql){
         $query = $this->pdo->query($sql);
         $this->numRows = $query->rowCount();
         $this->entries = $query->fetchAll();
     }
 
+    // Returns all entries.
     public function listEntries(){
         return $this->entries;
     }
 
-    public function fetchEntry(){
-        return $this->entries;
-    }
-
+    // Returns the number of rows.
     public function rowNum(){
         return $this->numRows;
     }
 
+    // Insert.
     public function insert($sql){
         $this->pdo->query($sql);
     }
 
+    // Update.
     public function update($sql){
         $this->pdo->query($sql);
     }
 
+    // Deletes.
     public function delete($sql){
         $this->pdo->query($sql);
     }
